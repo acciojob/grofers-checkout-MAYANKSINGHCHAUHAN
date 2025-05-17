@@ -1,23 +1,24 @@
-function calculateTotal() {
-    let prices = document.querySelectorAll(".prices");
-    let total = 0;
+const getSumBtn = document.createElement("button");
+getSumBtn.append("Get Total Price");
+document.body.appendChild(getSumBtn);
 
-    // Calculate total price
-    prices.forEach(price => {
-        total += parseFloat(price.innerText);
-    });
+// Create an element with id="ans" to display the total
+const ansElement = document.createElement("div");
+ansElement.id = "ans";
+document.body.appendChild(ansElement);
 
-    // Check if total row already exists and update it
-    let totalRow = document.getElementById("totalRow");
-    if (totalRow) {
-        totalRow.innerHTML = `<td colspan="2"><strong>Total Price: $${total.toFixed(2)}</strong></td>`;
-    } else {
-        // Create a new row for total price
-        let newRow = document.createElement("tr");
-        newRow.id = "totalRow";
-        newRow.innerHTML = `<td colspan="2"><strong>Total Price: $${total.toFixed(2)}</strong></td>`;
+const getSum = () => {
+  // Get all price elements
+  const prices = document.querySelectorAll(".price");
+  let total = 0;
 
-        // Append to the table
-        document.getElementById("groceryTable").appendChild(newRow);
-    }
-}
+  // Calculate the sum of prices
+  prices.forEach(price => {
+    total += parseInt(price.textContent) || 0; // Handle non-numeric cases
+  });
+
+  // Display total in #ans element
+  ansElement.textContent = `Total Price: Rs ${total}`;
+};
+
+getSumBtn.addEventListener("click", getSum);
